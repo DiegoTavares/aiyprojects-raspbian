@@ -271,6 +271,7 @@ class RgbLightCommand(object):
         self.color = color
 
     def run(self, voice_command):
+        print voice_command
         subprocess.call(["/usr/bin/irsend", "SEND_ONCE", "rgb_controller", voice_command.split[1]])
         self.say("Light set to blue")
 
