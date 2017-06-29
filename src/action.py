@@ -271,7 +271,7 @@ class RgbLightCommand(object):
         self.color = color
 
     def run(self, voice_command):
-        subprocess.call(["/usr/bin/irsend", "SEND_ONCE", "rgb_controller", "blue"])
+        subprocess.call(["/usr/bin/irsend", "SEND_ONCE", "rgb_controller", voice_command.split[1]])
         self.say("Light set to blue")
 
 
@@ -301,6 +301,7 @@ def make_actor(say):
 
     # My commands
     actor.add_keyword(_('light blue'), RgbLightCommand(say, 'blue'))
+    actor.add_keyword(_('light red'), RgbLightCommand(say, 'red'))
 
     return actor
 
