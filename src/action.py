@@ -262,16 +262,17 @@ class PowerCommand(object):
 # Makers! Implement your own actions here.
 # =========================================
 
-    class RgbLightCommand(object):
-        """Control RGB Light"""
 
-        def __init__(self, say, color):
-            self.say = say
-            self.color = color
+class RgbLightCommand(object):
+    """Control RGB Light"""
 
-        def run(self):
-            subprocess.call("irsend SEND_ONCE rgb_controller blue")
-            self.say("Lights set to blue")
+    def __init__(self, say, color):
+        self.say = say
+        self.color = color
+
+    def run(self):
+        subprocess.call("irsend SEND_ONCE rgb_controller blue")
+        self.say("Lights set to blue")
 
 
 def make_actor(say):
