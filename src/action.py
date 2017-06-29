@@ -271,7 +271,7 @@ class RgbLightCommand(object):
         self.color = color
 
     def run(self):
-        subprocess.call("irsend SEND_ONCE rgb_controller blue")
+        subprocess.call(["/usr/bin/irsend", "SEND_ONCE", "rgb_controller", "blue"])
         self.say("Lights set to blue")
 
 
