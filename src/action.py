@@ -262,6 +262,17 @@ class PowerCommand(object):
 # Makers! Implement your own actions here.
 # =========================================
 
+    class RgbLightCommand(object):
+        """Control RGB Light"""
+
+        def __init__(self, say, color):
+            self.say = say
+            self.color = color
+
+        def run(self):
+            subprocess.call("irsend SEND_ONCE rgb_controller blue")
+            self.say("Lights set to blue")
+
 
 def make_actor(say):
     """Create an actor to carry out the user's commands."""
@@ -286,6 +297,9 @@ def make_actor(say):
 
     actor.add_keyword(_('raspberry power off'), PowerCommand(say, 'shutdown'))
     actor.add_keyword(_('raspberry reboot'), PowerCommand(say, 'reboot'))
+
+    # My commands
+    actor.add_keyword(_('light blue'), RgbLightCommand(say, 'blue'))
 
     return actor
 
