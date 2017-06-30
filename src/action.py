@@ -303,8 +303,9 @@ def make_actor(say):
     # My commands
     actor.add_keyword(_('turn blue light'), RgbLightCommand(say, 'blue'))
     actor.add_keyword(_('turn red light'), RgbLightCommand(say, 'red'))
-    actor.add_keyword(_('turn yellow light'), RgbLightCommand(say, 'yellow'))
     actor.add_keyword(_('turn green light'), RgbLightCommand(say, 'green'))
+    actor.add_keyword(_('turn off the light'), RgbLightCommand(say, 'off'))
+
 
     return actor
 
