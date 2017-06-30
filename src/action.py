@@ -301,8 +301,10 @@ def make_actor(say):
     actor.add_keyword(_('raspberry reboot'), PowerCommand(say, 'reboot'))
 
     # My commands
-    actor.add_keyword(_('light blue'), RgbLightCommand(say, 'blue'))
-    actor.add_keyword(_('light red'), RgbLightCommand(say, 'red'))
+    actor.add_keyword(_('turn blue light'), RgbLightCommand(say, 'blue'))
+    actor.add_keyword(_('turn red light'), RgbLightCommand(say, 'red'))
+    actor.add_keyword(_('turn yellow light'), RgbLightCommand(say, 'yellow'))
+    actor.add_keyword(_('turn green light'), RgbLightCommand(say, 'green'))
 
     return actor
 
