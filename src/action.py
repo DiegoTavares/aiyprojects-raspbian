@@ -271,9 +271,9 @@ class RgbLightCommand(object):
         self.color = color
 
     def run(self, voice_command):
-        print(self.color)
-        subprocess.call(["/usr/bin/irsend", "SEND_ONCE", "rgb_controller", self.color])
-        self.say("Light set to " + self.color)
+        print(voice_command)
+        subprocess.call(["/usr/bin/irsend", "SEND_ONCE", "rgb_controller", color])
+        self.say("Light set to " + color)
 
 
 def make_actor(say):
@@ -301,8 +301,8 @@ def make_actor(say):
     actor.add_keyword(_('raspberry reboot'), PowerCommand(say, 'reboot'))
 
     # My commands
-    actor.add_keyword(_('turn light'), RgbLightCommand(say, _('turn light')))
-    actor.add_keyword(_('turn light'), RgbLightCommand(say, _('turn light')))
+    actor.add_keyword(_('turn light'), RgbLightCommand(say, 'blue'))
+    actor.add_keyword(_('light red'), RgbLightCommand(say, 'red'))
 
     return actor
 
