@@ -157,8 +157,8 @@ class VolumeControl(object):
 
     """Changes the volume and says the new level."""
 
-    GET_VOLUME = r'amixer get Master | grep "Front Left:" | sed "s/.*\[\([0-9]\+\)%\].*/\1/"'
-    SET_VOLUME = 'amixer -q set Master %d%%'
+    GET_VOLUME = r'amixer get PCM | grep "Mono:" | sed "s/.*\[\([0-9]\+\)%\].*/\1/"'
+    SET_VOLUME = 'amixer -q set PCM %d%%'
 
     def __init__(self, say, change):
         self.say = say
