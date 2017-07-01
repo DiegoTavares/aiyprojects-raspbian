@@ -301,12 +301,12 @@ def make_actor(say):
     actor.add_keyword(_('raspberry reboot'), PowerCommand(say, 'reboot'))
 
     # My commands
-    rgb_color_actor(say)
+    rgb_color_actor(actor, say)
 
     return actor
 
 
-def rgb_color_actor(say):
+def rgb_color_actor(actor, say):
     # RGB Light
     colors = [('green', 'green'),
               ('g1', 'green 1'),
