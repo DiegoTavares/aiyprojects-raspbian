@@ -301,13 +301,42 @@ def make_actor(say):
     actor.add_keyword(_('raspberry reboot'), PowerCommand(say, 'reboot'))
 
     # My commands
-    actor.add_keyword(_('turn blue light'), RgbLightCommand(say, 'blue'))
-    actor.add_keyword(_('turn red light'), RgbLightCommand(say, 'red'))
-    actor.add_keyword(_('turn green light'), RgbLightCommand(say, 'green'))
-    actor.add_keyword(_('turn off the light'), RgbLightCommand(say, 'off'))
-
+    rgb_color_actor(say)
 
     return actor
+
+
+def rgb_color_actor(say):
+    # RGB Light
+    colors = [('green', 'green'),
+              ('g1', 'green 1'),
+              ('g2', 'green 2'),
+              ('g3', 'green 3'),
+              ('g4', 'green 4'),
+              ('blue', 'blue'),
+              ('b1', 'blue 1'),
+              ('b2', 'blue 2'),
+              ('b3', 'blue 3'),
+              ('b4', 'blue 4'),
+              ('red', 'red'),
+              ('r1', 'red 1'),
+              ('r2', 'red 2'),
+              ('r3', 'red 3'),
+              ('r4', 'red 4'),
+              ('white', 'white')]
+
+    for code, keyword in colors:
+        actor.add_keyword(_('turn ' + keyword + ' light'), RgbLightCommand(say, code))
+        actor.add_keyword(_('set light to ' + keyword), RgbLightCommand(say, code))
+
+    actor.add_keyword(_('turn off the light'), RgbLightCommand(say, 'off'))
+    actor.add_keyword(_('calm light'), RgbLightCommand(say, 'b3'))
+    actor.add_keyword(_('hot light'), RgbLightCommand(say, 'r1'))
+    actor.add_keyword(_('turn off the light'), RgbLightCommand(say, 'off'))
+    actor.add_keyword(_('turn on the light'), RgbLightCommand(say, 'on'))
+    actor.add_keyword(_('dim up the light'), RgbLightCommand(say, 'dim_u'))
+    actor.add_keyword(_('dim down the light'), RgbLightCommand(say, 'dim_d'))
+    actor.add_keyword(_('shuffle light'), RgbLightCommand(say, 'smooth'))
 
 
 def add_commands_just_for_cloud_speech_api(actor, say):
