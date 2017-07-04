@@ -287,10 +287,12 @@ class SpotifyCommand(object):
 
     def run(self, voice_command):
         print(voice_command)
-
         if 'playlist' in self.music_or_playlist:
-            self.respond(self.mpd.shuffle_playlist(self.music_or_playlist.replace('playlist', '').strip()))
+            playlist_name = self.music_or_playlist.replace('playlist', '').strip()
+            print(playlist_name)
+            self.respond(self.mpd.shuffle_playlist(playlist_name))
         else:
+            print(music_or_playlist)
             self.respond(self.mpd.play_song(self.music_or_playlist))
 
     def respond(self, status, extra=''):
