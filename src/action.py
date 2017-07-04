@@ -290,7 +290,7 @@ class SpotifyCommand(object):
         if 'playlist' in self.music_or_playlist:
             playlist_name = self.music_or_playlist.replace('playlist', '').strip()
             print(playlist_name)
-            self.respond(self.mpd.shuffle_playlist(playlist_name))
+            self.respond(self.mpd.shuffle_playlist(playlist_name), playlist_name)
         else:
             print(music_or_playlist)
             self.respond(self.mpd.play_song(self.music_or_playlist))
@@ -339,7 +339,7 @@ def make_actor(say):
 
 def spotify_actor(actor, say):
     mpd = Spotify()
-    actor.add_keyword(_('play focus playlist'), SpotifyCommand(say, mpd, 'focus playlist'))
+    actor.add_keyword(_('play focus playlist'), SpotifyCommand(say, mpd, 'Focus playlist'))
 
 
 def rgb_color_actor(actor, say):
