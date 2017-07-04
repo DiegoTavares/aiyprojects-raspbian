@@ -22,7 +22,7 @@ import phue
 from rgbxy import Converter
 
 import actionbase
-import spotify
+from spotify import Spotify
 
 # =============================================================================
 #
