@@ -22,6 +22,7 @@ import phue
 from rgbxy import Converter
 
 import actionbase
+import spotify
 
 # =============================================================================
 #
@@ -274,6 +275,36 @@ class RgbLightCommand(object):
         print(voice_command)
         subprocess.call(["/usr/bin/irsend", "SEND_ONCE", "rgb_controller", self.color])
         self.say("Light set to " + self.color)
+
+
+class SpotifyCommand(object):
+    """Control Spotify"""
+
+    def __init__(self, mpd, say, music_or_playlist):
+        self.say = say
+        self.music_or_playlist = music_or_playlist
+        self.mpd = mpd
+
+    def run(self, voice_command):
+        print(voice_command)
+
+        if 'playlist' in self.music_or_playlist:
+            respond(self.mpd.shuffle_playlist(self.music_or_playlist))
+        else:
+            respond(self.mpd.play_song(self.music_or_playlist))
+
+    def respond(self, status, extra=''):
+        if status is self.mpd.SUCCESS:
+            self.say(extra + ' playing')
+        if status is self.mpd.FAILED_TO_CONNECT:
+            self.say('Sorry, I could not connect')
+        if status is self.mpd.PLAYLIST_NOT_FOUND:
+            self.say('Sorry, I thing this playlist doesn\'t exist')
+        if status is self.mpd.SONG_NOT_FOUND:
+            self.say('Are you sure this song exists?')
+
+
+
 
 
 def make_actor(say):
