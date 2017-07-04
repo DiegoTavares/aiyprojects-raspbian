@@ -11,13 +11,15 @@ class Spotify(object):
         self.PLAYLIST_NOT_FOUND = 'playlist not found'
         self.SONG_NOT_FOUND = 'song not found'
 
+        self.server = server
+        self.port = port
         self.client = MPDClient()
         self.client.timeout = 10
         self.client.idletimeout = None
 
     def connect(self):
         try:
-            self.client.connect(server, port)
+            self.client.connect(self.server, self.port)
         except:
             return self.FAILED_TO_CONNECT
         return self.SUCCESS
