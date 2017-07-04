@@ -19,8 +19,8 @@ class Spotify(object):
         try:
             self.client.connect(server, port)
         except:
-            return FAILED_TO_CONNECT
-        return SUCCESS
+            return self.FAILED_TO_CONNECT
+        return self.SUCCESS
 
     def disconnect(self):
         try:
@@ -31,19 +31,19 @@ class Spotify(object):
 
     def shuffle_playlist(self, playlist_name):
         status = self.connect()
-        if status is not SUCCESS:
+        if status is not self.SUCCESS:
             return status
 
         self.client.clear()
         try:
             self.client.load(playlist_name)
         except mpd.CommandError:
-            return PLAYLIST_NOT_FOUND
+            return self.PLAYLIST_NOT_FOUND
 
         self.client.shuffle()
         self.disconnect()
 
-        return SUCCESS
+        return self.SUCCESS
 
     def play_song(self, song_query):
         pass
