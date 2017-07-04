@@ -280,24 +280,22 @@ class RgbLightCommand(object):
 class SpotifyCommand(object):
     """Control Spotify"""
 
-    def __init__(self, say, mpd, music_or_playlist):
+    def __init__(self, say, mpd, command):
         self.say = say
-        self.music_or_playlist = music_or_playlist
+        self.command = command
         self.mpd = mpd
-
-    def pause(self, voice_command):
-        print(voice_command)
-        mpd.pause()
 
     def run(self, voice_command):
         print(voice_command)
-        if 'playlist' in self.music_or_playlist:
-            playlist_name = self.music_or_playlist.replace('playlist', '').strip()
+        if 'playlist' in self.command:
+            playlist_name = self.command.replace('playlist', '').strip()
             print(playlist_name)
             self.respond(self.mpd.shuffle_playlist(playlist_name), playlist_name)
+        elif 'pause' in self.command:
+            mpd.pause()
         else:
-            print(music_or_playlist)
-            self.respond(self.mpd.play_song(self.music_or_playlist))
+            print(command)
+            self.respond(self.mpd.play_song(self.command))
 
     def respond(self, status, extra=''):
         if status is self.mpd.SUCCESS:
@@ -344,7 +342,7 @@ def make_actor(say):
 def spotify_actor(actor, say):
     mpd = Spotify()
     actor.add_keyword(_('play focus playlist'), SpotifyCommand(say, mpd, 'Focus playlist'))
-    actor.add_keyword(_('pause spotify'), SpotifyCommand(say, mpd))
+    actor.add_keyword(_('pause spotify'), SpotifyCommand(say, mpd, 'pause'))
 
 
 def rgb_color_actor(actor, say):
