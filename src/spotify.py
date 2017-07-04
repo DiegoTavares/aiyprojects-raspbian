@@ -39,7 +39,7 @@ class Spotify(object):
         self.client.clear()
         try:
             self.client.load(playlist_name)
-        except mpd.CommandError:
+        except MPDClient.CommandError:
             return self.PLAYLIST_NOT_FOUND
 
         self.client.shuffle()
