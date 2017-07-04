@@ -43,6 +43,7 @@ class Spotify(object):
             return self.PLAYLIST_NOT_FOUND
 
         self.client.shuffle()
+        self.client.play(0)
         self.disconnect()
 
         return self.SUCCESS
