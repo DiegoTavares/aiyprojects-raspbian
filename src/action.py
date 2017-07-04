@@ -304,9 +304,6 @@ class SpotifyCommand(object):
             self.say('Are you sure this song exists?')
 
 
-
-
-
 def make_actor(say):
     """Create an actor to carry out the user's commands."""
 
@@ -333,8 +330,13 @@ def make_actor(say):
 
     # My commands
     rgb_color_actor(actor, say)
+    spotify_actor(actor, say)
 
     return actor
+
+
+def spotify_actor(actor, say):
+    actor.add_keyword(_('play focus playlist'), SpotifyCommand(say, 'focus playlist'))
 
 
 def rgb_color_actor(actor, say):
