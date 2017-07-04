@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from mpd import MPDClient
+import mpd
 
 
 class Spotify(object):
@@ -13,7 +13,7 @@ class Spotify(object):
 
         self.server = server
         self.port = port
-        self.client = MPDClient()
+        self.client = mpd.MPDClient()
         self.client.timeout = 10
         self.client.idletimeout = None
 
@@ -39,7 +39,7 @@ class Spotify(object):
         self.client.clear()
         try:
             self.client.load(playlist_name)
-        except MPDClient.CommandError:
+        except mpd.CommandError:
             return self.PLAYLIST_NOT_FOUND
 
         self.client.shuffle()
