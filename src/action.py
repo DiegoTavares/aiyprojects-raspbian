@@ -285,6 +285,10 @@ class SpotifyCommand(object):
         self.music_or_playlist = music_or_playlist
         self.mpd = mpd
 
+    def pause(self, voice_command):
+        print(voice_command)
+        mpd.pause()
+
     def run(self, voice_command):
         print(voice_command)
         if 'playlist' in self.music_or_playlist:
@@ -340,6 +344,7 @@ def make_actor(say):
 def spotify_actor(actor, say):
     mpd = Spotify()
     actor.add_keyword(_('play focus playlist'), SpotifyCommand(say, mpd, 'Focus playlist'))
+    actor.add_keyword(_('pause spotify'), SpotifyCommand(say, mpd))
 
 
 def rgb_color_actor(actor, say):
