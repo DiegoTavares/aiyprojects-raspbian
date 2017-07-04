@@ -280,7 +280,7 @@ class RgbLightCommand(object):
 class SpotifyCommand(object):
     """Control Spotify"""
 
-    def __init__(self, mpd, say, music_or_playlist):
+    def __init__(self, say, mpd, music_or_playlist):
         self.say = say
         self.music_or_playlist = music_or_playlist
         self.mpd = mpd
@@ -336,7 +336,8 @@ def make_actor(say):
 
 
 def spotify_actor(actor, say):
-    actor.add_keyword(_('play focus playlist'), SpotifyCommand(say, 'focus playlist'))
+    mpd = Spotify()
+    actor.add_keyword(_('play focus playlist'), SpotifyCommand(say, mpd, 'focus playlist'))
 
 
 def rgb_color_actor(actor, say):
