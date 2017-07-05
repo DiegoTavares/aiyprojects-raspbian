@@ -180,14 +180,14 @@ class VolumeControl(object):
             subprocess.call(VolumeControl.SET_VOLUME % vol, shell=True)
         except (ValueError, subprocess.CalledProcessError):
             logging.exception("Error using amixer to adjust volume.")
-        print("Volume was " + last_vol)
-        print("Volume set to " + vol)
+        print("Volume was " + str(last_vol))
+        print("Volume set to " + str(vol))
         VolumeControl.LAST_VOL = last_vol
 
     @staticmethod
     def undo():
         try:
-            print("Volume reset to " + VolumeControl.LAST_VOL)
+            print("Volume reset to " + str(VolumeControl.LAST_VOL))
             subprocess.call(VolumeControl.SET_VOLUME % VolumeControl.LAST_VOL, shell=True)
         except (ValueError, subprocess.CalledProcessError):
             logging.exception("Error using amixer to adjust volume.")
