@@ -166,19 +166,19 @@ class VolumeControl(object):
         self.change = change
 
     def run(self, voice_command):
-        res = subprocess.check_output(VolumeControl.GET_VOLUME, shell=True).strip()
-        try:
-            logging.info("volume: %s", res)
-            vol = self.change_vol(self.change)
-            self.say(_('Volume at %d %%.') % vol)
-        except (ValueError, subprocess.CalledProcessError):
-            logging.exception("Error using amixer to adjust volume.")
+        vol = self.change_vol(self.change)
+        self.say(_('Volume at %d %%.') % vol)
 
     @staticmethod
     def change_vol(change):
-        vol = int(res) + change
-        vol = max(0, min(100, vol))
-        subprocess.call(VolumeControl.SET_VOLUME % vol, shell=True)
+        res = subprocess.check_output(VolumeControl.GET_VOLUME, shell=True).strip()
+        try:
+            logging.info("volume: %s", res)
+            vol = int(res) + change
+            vol = max(0, min(100, vol))
+            subprocess.call(VolumeControl.SET_VOLUME % vol, shell=True)
+        except (ValueError, subprocess.CalledProcessError):
+            logging.exception("Error using amixer to adjust volume.")
 
         return vol
 
