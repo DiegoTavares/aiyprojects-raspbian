@@ -219,18 +219,16 @@ installed with:
         elif event.type == EventType.ON_END_OF_UTTERANCE:
             status_ui.status('thinking')
 
-        elif event.type == EventType.ON_RECOGNIZING_SPEECH_FINISHED and \
-                event.args and actor.can_handle(event.args['text']):
-            if not args.assistant_always_responds:
-                assistant.stop_conversation()
-            actor.handle(event.args['text'])
-
-        elif event.type == EventType.ON_CONVERSATION_TURN_FINISHED:
-            status_ui.status('ready')
-
         elif event.type == EventType.ON_RECOGNIZING_SPEECH_FINISHED:
             status_ui.status('recognized')
             action.VolumeControl.undo()
+            if event.args and actor.can_handle(event.args['text']):
+                if not args.assistant_always_responds:
+                    assistant.stop_conversation()
+                actor.handle(event.args['text'])
+
+        elif event.type == EventType.ON_CONVERSATION_TURN_FINISHED:
+            status_ui.status('ready')
 
         elif event.type == EventType.ON_ASSISTANT_ERROR and \
                 event.args and event.args['is_fatal']:
