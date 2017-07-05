@@ -312,7 +312,7 @@ class SpotifyCommand(object):
         print(voice_command)
         if 'playlist' in self.command.lower():
             # playlist_name = self.command.replace('playlist', '').strip()
-            playlist_name = voice_command.replace(self.command, '', 1)
+            playlist_name = voice_command.replace(self.command, '', 1).strip()
             print(playlist_name)
             self.respond(self.mpd.shuffle_playlist(playlist_name), playlist_name)
         elif 'pause' in self.command.lower():
