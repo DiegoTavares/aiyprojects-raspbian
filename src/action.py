@@ -298,7 +298,7 @@ class SpotifyCommand(object):
             print(playlist_name)
             self.respond(self.mpd.shuffle_playlist(playlist_name), playlist_name)
         elif 'pause' in self.command.lower():
-            mpd.pause()
+            self.mpd.pause()
         else:
             print(command)
             self.respond(self.mpd.play_song(self.command))
