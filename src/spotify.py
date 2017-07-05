@@ -57,3 +57,17 @@ class Spotify(object):
             return status
         self.client.pause()
         self.disconnect()
+
+    def resume(self):
+        status = self.connect()
+        if status is not self.SUCCESS:
+            return status
+        self.client.pause(1)
+        self.disconnect()
+
+    def next(self):
+        status = self.connect()
+        if status is not self.SUCCESS:
+            return status
+        self.client.next()
+        self.disconnect()

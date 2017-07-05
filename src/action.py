@@ -317,6 +317,10 @@ class SpotifyCommand(object):
             self.respond(self.mpd.shuffle_playlist(playlist_name), playlist_name)
         elif 'pause' in self.command.lower():
             self.mpd.pause()
+        elif 'resume' in self.command.lower():
+            self.mpd.resume()
+        elif 'next' in self.command.lower():
+            self.mpd.next()
         else:
             print(command)
             self.respond(self.mpd.play_song(self.command))
@@ -367,6 +371,8 @@ def spotify_actor(actor, say):
     mpd = Spotify()
     actor.add_keyword(_('listen to playlist'), SpotifyCommand(say, mpd, _('Listen to playlist')))
     actor.add_keyword(_('pause spotify'), SpotifyCommand(say, mpd, 'pause'))
+    actor.add_keyword(_('resume spotify'), SpotifyCommand(say, mpd, 'resume'))
+    actor.add_keyword(_('next song'), SpotifyCommand(say, mpd, 'next'))
 
 
 def rgb_color_actor(actor, say):
