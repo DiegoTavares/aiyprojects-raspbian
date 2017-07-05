@@ -181,7 +181,7 @@ class VolumeControl(object):
         except (ValueError, subprocess.CalledProcessError):
             logging.exception("Error using amixer to adjust volume.")
 
-        LAST_VOL = last_vol
+        VolumeControl.LAST_VOL = last_vol
 
     @staticmethod
     def undo():
