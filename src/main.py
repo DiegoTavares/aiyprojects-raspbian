@@ -229,6 +229,7 @@ installed with:
             status_ui.status('ready')
 
         elif event.type == EventType.ON_RECOGNIZING_SPEECH_FINISHED:
+            status_ui.status('recognized')
             action.VolumeControl.undo()
 
         elif event.type == EventType.ON_ASSISTANT_ERROR and \
