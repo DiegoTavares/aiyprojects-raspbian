@@ -175,7 +175,7 @@ class VolumeControl(object):
             logging.exception("Error using amixer to adjust volume.")
 
     @staticmethod
-    def change_vol(self, change):
+    def change_vol(change):
         vol = int(res) + change
         vol = max(0, min(100, vol))
         subprocess.call(VolumeControl.SET_VOLUME % vol, shell=True)
