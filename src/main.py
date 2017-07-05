@@ -228,7 +228,7 @@ installed with:
         elif event.type == EventType.ON_CONVERSATION_TURN_FINISHED:
             status_ui.status('ready')
 
-        elif event.type == EventType.ON_RESPONDING_FINISHED:
+        elif (event.type == EventType.ON_RESPONDING_FINISHED) or (event.type == ON_CONVERSATION_TURN_FINISHED):
             action.change_vol(30)
 
         elif event.type == EventType.ON_ASSISTANT_ERROR and \
