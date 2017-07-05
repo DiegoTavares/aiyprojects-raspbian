@@ -365,7 +365,7 @@ def make_actor(say):
 
 def spotify_actor(actor, say):
     mpd = Spotify()
-    actor.add_keyword(_('listen to playlist'), SpotifyCommand(say, mpd, _('listen to playlist')))
+    actor.add_keyword(_('listen to playlist'), SpotifyCommand(say, mpd, _('Listen to playlist')))
     actor.add_keyword(_('pause spotify'), SpotifyCommand(say, mpd, 'pause'))
 
 
