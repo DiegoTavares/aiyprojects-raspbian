@@ -50,3 +50,10 @@ class Spotify(object):
 
     def play_song(self, song_query):
         pass
+
+    def pause(self):
+        status = self.connect()
+        if status is not self.SUCCESS:
+            return status
+        self.status.pause()
+        self.disconnect()

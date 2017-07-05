@@ -169,12 +169,18 @@ class VolumeControl(object):
         res = subprocess.check_output(VolumeControl.GET_VOLUME, shell=True).strip()
         try:
             logging.info("volume: %s", res)
-            vol = int(res) + self.change
-            vol = max(0, min(100, vol))
-            subprocess.call(VolumeControl.SET_VOLUME % vol, shell=True)
+            vol = self.change_vol(self.change)
             self.say(_('Volume at %d %%.') % vol)
         except (ValueError, subprocess.CalledProcessError):
             logging.exception("Error using amixer to adjust volume.")
+
+    @staticmethod
+    def change_vol(self, change):
+        vol = int(res) + change
+        vol = max(0, min(100, vol))
+        subprocess.call(VolumeControl.SET_VOLUME % vol, shell=True)
+
+        return vol
 
 
 # Example: Repeat after me
@@ -287,11 +293,11 @@ class SpotifyCommand(object):
 
     def run(self, voice_command):
         print(voice_command)
-        if 'playlist' in self.command:
+        if 'playlist' in self.command.lower():
             playlist_name = self.command.replace('playlist', '').strip()
             print(playlist_name)
             self.respond(self.mpd.shuffle_playlist(playlist_name), playlist_name)
-        elif 'pause' in self.command:
+        elif 'pause' in self.command.lower():
             mpd.pause()
         else:
             print(command)
