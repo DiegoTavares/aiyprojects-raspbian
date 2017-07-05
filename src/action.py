@@ -311,7 +311,8 @@ class SpotifyCommand(object):
     def run(self, voice_command):
         print(voice_command)
         if 'playlist' in self.command.lower():
-            playlist_name = self.command.replace('playlist', '').strip()
+            # playlist_name = self.command.replace('playlist', '').strip()
+            playlist_name = voice_command.replace(self.keyword, '', 1)
             print(playlist_name)
             self.respond(self.mpd.shuffle_playlist(playlist_name), playlist_name)
         elif 'pause' in self.command.lower():
@@ -364,7 +365,7 @@ def make_actor(say):
 
 def spotify_actor(actor, say):
     mpd = Spotify()
-    actor.add_keyword(_('play focus playlist'), SpotifyCommand(say, mpd, 'Focus playlist'))
+    actor.add_keyword(_('listen to playlist'), SpotifyCommand(say, mpd, _('playlist')))
     actor.add_keyword(_('pause spotify'), SpotifyCommand(say, mpd, 'pause'))
 
 
