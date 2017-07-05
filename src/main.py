@@ -213,7 +213,7 @@ installed with:
                 print('Say "OK, Google" then speak, or press Ctrl+C to quit...')
 
         elif event.type == EventType.ON_CONVERSATION_TURN_STARTED:
-            action.change_vol(-30)
+            action.VolumeControl.change_vol(-30)
             status_ui.status('listening')
 
         elif event.type == EventType.ON_END_OF_UTTERANCE:
@@ -229,7 +229,7 @@ installed with:
             status_ui.status('ready')
 
         elif (event.type == EventType.ON_RESPONDING_FINISHED) or (event.type == EventType.ON_CONVERSATION_TURN_FINISHED):
-            action.change_vol(30)
+            action.VolumeControl.change_vol(30)
 
         elif event.type == EventType.ON_ASSISTANT_ERROR and \
                 event.args and event.args['is_fatal']:
