@@ -55,5 +55,5 @@ class Spotify(object):
         status = self.connect()
         if status is not self.SUCCESS:
             return status
-        self.status.pause()
+        self.client.pause()
         self.disconnect()
