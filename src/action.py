@@ -160,6 +160,7 @@ class VolumeControl(object):
 
     GET_VOLUME = r'amixer get PCM | grep "Mono:" | sed "s/.*\[\([0-9]\+\)%\].*/\1/"'
     SET_VOLUME = 'amixer -q set PCM %d%%'
+    LAST_VOL = 60
 
     def __init__(self, say, change):
         self.say = say
@@ -167,20 +168,28 @@ class VolumeControl(object):
 
     def run(self, voice_command):
         vol = self.change_vol(self.change)
-        self.say(_('Volume at %d %%.') % vol)
+        # self.say(_('Volume at %d %%.') % vol)
 
     @staticmethod
     def change_vol(change):
         res = subprocess.check_output(VolumeControl.GET_VOLUME, shell=True).strip()
+        last_vol = int(res) + change
         try:
             logging.info("volume: %s", res)
-            vol = int(res) + change
-            vol = max(0, min(100, vol))
+            vol = max(0, min(100, last_vol))
             subprocess.call(VolumeControl.SET_VOLUME % vol, shell=True)
         except (ValueError, subprocess.CalledProcessError):
             logging.exception("Error using amixer to adjust volume.")
 
-        return vol
+        LAST_VOL = last_vol
+
+    @staticmethod
+    def undo():
+        try:
+            subprocess.call(VolumeControl.SET_VOLUME % VolumeControl.LAST_VOL, shell=True)
+        except (ValueError, subprocess.CalledProcessError):
+            logging.exception("Error using amixer to adjust volume.")
+
 
 
 # Example: Repeat after me

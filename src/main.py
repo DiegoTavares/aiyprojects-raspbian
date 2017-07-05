@@ -229,7 +229,7 @@ installed with:
             status_ui.status('ready')
 
         elif event.type == EventType.ON_RECOGNIZING_SPEECH_FINISHED:
-            action.VolumeControl.change_vol(10)
+            action.VolumeControl.undo()
 
         elif event.type == EventType.ON_ASSISTANT_ERROR and \
                 event.args and event.args['is_fatal']:
