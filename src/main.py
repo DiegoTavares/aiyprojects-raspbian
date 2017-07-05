@@ -213,7 +213,7 @@ installed with:
                 print('Say "OK, Google" then speak, or press Ctrl+C to quit...')
 
         elif event.type == EventType.ON_CONVERSATION_TURN_STARTED:
-            action.VolumeControl.change_vol(-10)
+            action.VolumeControl.change_vol(-20)
             status_ui.status('listening')
 
         elif event.type == EventType.ON_END_OF_UTTERANCE:
