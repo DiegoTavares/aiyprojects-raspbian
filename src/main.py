@@ -166,6 +166,8 @@ def main():
         recognizer = speech.AssistantSpeechRequest(credentials)
 
     status_ui = StatusUi(player, args.led_fifo, args.trigger_sound)
+    switch = GpioSwitch([action.reboot, action.shutdown])
+    switch.start()
 
     # The ok-google trigger is handled with the Assistant Library, so we need
     # to catch this case early.
@@ -182,9 +184,6 @@ def main():
             sample_rate_hz=speech.AUDIO_SAMPLE_RATE_HZ)
         with recorder:
             do_recognition(args, recorder, recognizer, player, status_ui)
-
-    switch = GpioSwitch([action.reboot, action.shutdown])
-    switch.start()
 
 
 def do_assistant_library(args, credentials, player, status_ui):
