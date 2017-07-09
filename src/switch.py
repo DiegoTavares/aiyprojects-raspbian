@@ -4,7 +4,6 @@ from datetime import datetime
 from threading import Timer
 
 
-
 class GpioSwitch(object):
     control = 0
     COMMAND_TIMEOUT = 5
@@ -27,13 +26,11 @@ class GpioSwitch(object):
         self.control += 1
 
     def execute(self):
-        print('executing actions')
-
         if self.control > len(self.actions):
-            print('Invalid command')
+            print('Invalid action')
         else:
             action = self.actions[self.control - 1]
-            print('action', action.__name__)
+            print('Executing action', action.__name__)
             action()
 
     def start(self):

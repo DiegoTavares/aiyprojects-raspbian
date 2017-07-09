@@ -263,6 +263,13 @@ class ChangeLightColor(object):
 # ================================
 # Shuts down the pi or reboots with a response
 #
+def shutdown():
+    subprocess.call("sudo shutdown now", shell=True)
+
+
+def reboot():
+    subprocess.call("sudo shutdown -r now", shell=True)
+
 
 class PowerCommand(object):
     """Shutdown or reboot the pi"""
@@ -274,10 +281,10 @@ class PowerCommand(object):
     def run(self, voice_command):
         if self.command == "shutdown":
             self.say("Shutting down, goodbye")
-            subprocess.call("sudo shutdown now", shell=True)
+            shutdown()
         elif self.command == "reboot":
             self.say("Rebooting")
-            subprocess.call("sudo shutdown -r now", shell=True)
+            reboot()
         else:
             logging.error("Error identifying power command.")
             self.say("Sorry I didn't identify that command")
