@@ -184,6 +184,7 @@ def main():
             do_recognition(args, recorder, recognizer, player, status_ui)
 
     switch = GpioSwitch([action.reboot, action.shutdown])
+    switch.start()
 
 
 def do_assistant_library(args, credentials, player, status_ui):
