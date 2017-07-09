@@ -5,10 +5,10 @@ from datetime import datetime
 
 class GpioSwitch(object):
     control = 0
-    time_start = 0
     COMMAND_TIMEOUT = 5
 
     def __init__(self):
+        self.time_start = datetime.now()
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(18, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
