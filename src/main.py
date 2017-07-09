@@ -31,6 +31,7 @@ import action
 import i18n
 import speech
 import tts
+from switch import GpioSwitch
 
 # =============================================================================
 #
@@ -181,6 +182,8 @@ def main():
             sample_rate_hz=speech.AUDIO_SAMPLE_RATE_HZ)
         with recorder:
             do_recognition(args, recorder, recognizer, player, status_ui)
+
+    switch = GpioSwitch([action.reboot, action.shutdown])
 
 
 def do_assistant_library(args, credentials, player, status_ui):
