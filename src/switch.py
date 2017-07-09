@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import RPi.GPIO as GPIO
 from datetime import datetime
-
+from threading import Timer
 
 class GpioSwitch(object):
     control = 0
@@ -19,8 +19,11 @@ class GpioSwitch(object):
 
         if self.control == 0:
             self.time_start = datetime.now()
+            Timer(5, self.actions).start()
+
         self.control += 1
 
+    def actions(self):
         if self.control == 1:
             print('control', 1)
         elif self.control == 2:
