@@ -331,7 +331,7 @@ class SpotifyCommand(object):
         if status is self.mpd.FAILED_TO_CONNECT:
             self.say('Sorry, I could not connect')
         if status is self.mpd.PLAYLIST_NOT_FOUND:
-            self.say('Sorry, I thing this playlist doesn\'t exist')
+            self.say('Sorry, I thing this playlist does not exist')
         if status is self.mpd.SONG_NOT_FOUND:
             self.say('Are you sure this song exists?')
 
