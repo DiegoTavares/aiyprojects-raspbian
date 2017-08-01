@@ -31,7 +31,7 @@ import auth_helpers
 import action
 import speech
 
-from switch import GpioSwitchg
+from switch import GpioSwitch
 
 # =============================================================================
 #
