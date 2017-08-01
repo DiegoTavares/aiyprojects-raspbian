@@ -239,11 +239,12 @@ installed with:
                 event.args and event.args['is_fatal']:
             sys.exit(1)
 
-        elif event.type == EventType.ON_RESPONDING_STARTED:
-            action.VolumeControl.change_vol(-20)
-
-        elif event.type == EventType.ON_RESPONDING_FINISHED:
-            action.VolumeControl.undo()
+        # TODO reduce only the volume of music
+        # elif event.type == EventType.ON_RESPONDING_STARTED:
+        #     action.VolumeControl.change_vol(-20)
+        #
+        # elif event.type == EventType.ON_RESPONDING_FINISHED:
+        #     action.VolumeControl.undo()
 
     with Assistant(credentials) as assistant:
         for event in assistant.start():
