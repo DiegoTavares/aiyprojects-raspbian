@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import mpd
+impiort mpd
 
 
 class Spotify(object):
@@ -38,8 +38,13 @@ class Spotify(object):
 
         self.client.clear()
         try:
-            self.client.load(playlist_name)
+            for item in self.client.listplaylists():
+                if playlist_name.lower() in item['playlist'].lower():
+                    self.client.load(item['playlist'])
+                    break
+
         except mpd.CommandError:
+            self.disconnect()
             return self.PLAYLIST_NOT_FOUND
 
         self.client.shuffle()
