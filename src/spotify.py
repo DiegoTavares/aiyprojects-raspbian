@@ -91,4 +91,4 @@ class Spotify(object):
             return status
 
         for item in self.client.listplaylists():
-            yield item['playlist'].lower():
+            yield item['playlist'].lower()
