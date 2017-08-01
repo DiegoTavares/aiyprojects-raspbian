@@ -25,12 +25,12 @@ import time
 
 import configargparse
 
-import audio
+import aiy.audio
+import aiy.i18n
 import auth_helpers
 import action
-import i18n
 import speech
-import tts
+
 from switch import GpioSwitch
 
 # =============================================================================
@@ -65,6 +65,10 @@ OLD_SERVICE_CREDENTIALS = os.path.expanduser('~/credentials.json')
 ASSISTANT_CREDENTIALS = (
     os.path.join(VR_CACHE_DIR, 'assistant_credentials.json')
 )
+
+# Where the locale/language bundles are stored
+LOCALE_DIR = os.path.realpath(
+    os.path.join(os.path.abspath(os.path.dirname(__file__)), '../po'))
 
 
 def try_to_get_credentials(client_secrets):
@@ -151,9 +155,10 @@ def main():
     args = parser.parse_args()
 
     create_pid_file(args.pid_file)
-    i18n.set_language_code(args.language, gettext_install=True)
+    aiy.i18n.set_locale_dir(LOCALE_DIR)
+    aiy.i18n.set_language_code(args.language, gettext_install=True)
 
-    player = audio.Player(args.output_device)
+    player = aiy.audio.get_player()
 
     if args.cloud_speech:
         credentials_file = os.path.expanduser(args.cloud_speech_secrets)
@@ -178,10 +183,7 @@ def main():
             sys.exit(1)
         do_assistant_library(args, credentials, player, status_ui)
     else:
-        recorder = audio.Recorder(
-            input_device=args.input_device, channels=1,
-            bytes_per_sample=speech.AUDIO_SAMPLE_SIZE,
-            sample_rate_hz=speech.AUDIO_SAMPLE_RATE_HZ)
+        recorder = aiy.audio.get_recorder()
         with recorder:
             do_recognition(args, recorder, recognizer, player, status_ui)
 
@@ -204,7 +206,7 @@ installed with:
     env/bin/pip install google-assistant-library==0.0.2''')
         sys.exit(1)
 
-    say = tts.create_say(player)
+    say = aiy.audio.say
     actor = action.make_actor(say)
 
     def process_event(event):
@@ -244,8 +246,7 @@ installed with:
 
 def do_recognition(args, recorder, recognizer, player, status_ui):
     """Configure and run the recognizer."""
-    say = tts.create_say(player)
-
+    say = aiy.audio.say
     actor = action.make_actor(say)
 
     if args.cloud_speech:
@@ -369,7 +370,7 @@ class SyncMicRecognizer(object):
         self.recognizer_event.set()
 
     def endpointer_cb(self):
-        self.recorder.del_processor(self.recognizer)
+        self.recorder.remove_processor(self.recognizer)
         self.status_ui.status('thinking')
 
     def _recognize(self):
