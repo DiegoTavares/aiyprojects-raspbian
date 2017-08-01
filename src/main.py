@@ -31,7 +31,7 @@ import auth_helpers
 import action
 import speech
 
-from switch import GpioSwitch
+from switch import GpioSwitchg
 
 # =============================================================================
 #
@@ -238,6 +238,12 @@ installed with:
         elif event.type == EventType.ON_ASSISTANT_ERROR and \
                 event.args and event.args['is_fatal']:
             sys.exit(1)
+
+        elif event.type == EventType.ON_RESPONDING_STARTED:
+            action.VolumeControl.change_vol(-20)
+
+        elif event.type == EventType.ON_RESPONDING_FINISHED:
+            action.VolumeControl.undo()
 
     with Assistant(credentials) as assistant:
         for event in assistant.start():
