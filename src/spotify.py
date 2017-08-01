@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-impiort mpd
+import mpd
 
 
 class Spotify(object):
