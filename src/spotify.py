@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 import mpd
-
+import time
 
 class Spotify(object):
     """Play songs in Spotify"""
@@ -36,10 +36,10 @@ class Spotify(object):
         if status is not self.SUCCESS:
             return status
 
-        self.client.clear()
         try:
             for item in self.client.listplaylists():
                 if playlist_name.lower() in item['playlist'].lower():
+                    self.client.clear()
                     self.client.load(item['playlist'])
                     break
 
@@ -52,9 +52,6 @@ class Spotify(object):
         self.disconnect()
 
         return self.SUCCESS
-
-    def play_song(self, song_query):
-        pass
 
     def pause(self):
         status = self.connect()
@@ -76,3 +73,22 @@ class Spotify(object):
             return status
         self.client.next()
         self.disconnect()
+
+    def play_song(self, song_name):
+        status = self.connect()
+        if status is not self.SUCCESS:
+            return status
+
+        playlist_name = 'now_playing_' + time.strftime("%Y%m%d%H%M%S")
+        self.client.searchaddpl(playlist_name, 'song', song_name)
+        if song_list:
+            self.client.load(playlist_name)
+            self.client.play(1)
+
+    def list_playlists(self):
+        status = self.connect()
+        if status is not self.SUCCESS:
+            return status
+
+        for item in self.client.listplaylists():
+            yield item['playlist'].lower():
