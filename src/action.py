@@ -389,7 +389,7 @@ def spotify_actor(actor, say):
     actor.add_keyword(_('shut up'), SpotifyCommand(say, mpd, 'pause'))
     actor.add_keyword(_('resume'), SpotifyCommand(say, mpd, 'resume'))
     actor.add_keyword(_('next song'), SpotifyCommand(say, mpd, 'next'))
-    actor.add_keyword(_('what playlists do I have'), SpotifyCommand(say, mpd, 'playlists'))
+    actor.add_keyword(_('what songs'), SpotifyCommand(say, mpd, 'playlists'))
     actor.add_keyword(_('listen to music'), SpotifyCommand(say, mpd, _('Listen to music')))
 
 
