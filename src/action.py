@@ -199,7 +199,6 @@ class VolumeControl(object):
             logging.exception("Error using amixer to adjust volume.")
 
 
-
 # Example: Repeat after me
 # ========================
 #
@@ -323,15 +322,19 @@ class SpotifyCommand(object):
             print(playlist_name)
             self.respond(self.mpd.shuffle_playlist(playlist_name), playlist_name)
         elif 'pause' in self.command.lower():
+            self.say('Ok')
             self.mpd.pause()
         elif 'resume' in self.command.lower():
             self.mpd.resume()
         elif 'next' in self.command.lower():
             self.mpd.next()
         elif 'playlists' in self.command.lower():
-            self.mpd.next()
+            for playlist in self.mpd.list_playlists():
+                self.say(playlist)
         elif 'play music' in self.command.lower():
             self.mpd.next()
+        elif 'refresh' in self.command.lower():
+            self.mpd.refresh()
         else:
             print(command)
             self.respond(self.mpd.play_song(self.command))
@@ -382,6 +385,8 @@ def spotify_actor(actor, say):
     mpd = Spotify()
     actor.add_keyword(_('listen to playlist'), SpotifyCommand(say, mpd, _('Listen to playlist')))
     actor.add_keyword(_('pause spotify'), SpotifyCommand(say, mpd, 'pause'))
+    actor.add_keyword(_('refresh spotify'), SpotifyCommand(say, mpd, 'refresh'))
+    actor.add_keyword(_('shut up'), SpotifyCommand(say, mpd, 'pause'))
     actor.add_keyword(_('resume spotify'), SpotifyCommand(say, mpd, 'resume'))
     actor.add_keyword(_('next song'), SpotifyCommand(say, mpd, 'next'))
     actor.add_keyword(_('what playlists do I have'), SpotifyCommand(say, mpd, 'playlists'))

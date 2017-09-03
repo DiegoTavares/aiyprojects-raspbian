@@ -233,6 +233,7 @@ installed with:
                 actor.handle(event.args['text'])
 
         elif event.type == EventType.ON_CONVERSATION_TURN_FINISHED:
+            action.VolumeControl.undo()
             status_ui.status('ready')
 
         elif event.type == EventType.ON_ASSISTANT_ERROR and \

@@ -2,6 +2,7 @@
 import mpd
 import time
 
+
 class Spotify(object):
     """Play songs in Spotify"""
 
@@ -10,7 +11,6 @@ class Spotify(object):
         self.FAILED_TO_CONNECT = 'connection failed'
         self.PLAYLIST_NOT_FOUND = 'playlist not found'
         self.SONG_NOT_FOUND = 'song not found'
-
         self.server = server
         self.port = port
         self.client = mpd.MPDClient()
@@ -92,3 +92,10 @@ class Spotify(object):
 
         for item in self.client.listplaylists():
             yield item['playlist'].lower()
+
+    def refresh(self):
+        status = self.connect()
+        if status is not self.SUCCESS:
+            return status
+
+        self.client.refresh()
