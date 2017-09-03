@@ -328,7 +328,7 @@ class SpotifyCommand(object):
             self.mpd.resume()
         elif 'next' in self.command.lower():
             self.mpd.next()
-        elif 'playlists' in self.command.lower():
+        elif 'songs' in self.command.lower():
             for playlist in self.mpd.list_playlists():
                 self.say(playlist)
         elif 'play music' in self.command.lower():
