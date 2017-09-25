@@ -158,8 +158,8 @@ class VolumeControl(object):
 
     """Changes the volume and says the new level."""
 
-    GET_VOLUME = r'amixer get PCM | grep "Mono:" | sed "s/.*\[\([0-9]\+\)%\].*/\1/"'
-    SET_VOLUME = 'amixer -q set PCM %d%%'
+    GET_VOLUME = r'amixer get Digital | grep "Left:" | cut -d'[' -f 2 | cut -d']' -f 1'
+    SET_VOLUME = 'amixer -q set Digital %d%%'
     LAST_VOL = 60
 
     def __init__(self, say, change):
