@@ -158,7 +158,7 @@ class VolumeControl(object):
 
     """Changes the volume and says the new level."""
 
-    GET_VOLUME = r'amixer get Digital | grep "Left:" | cut -d'[' -f 2 | cut -d']' -f 1'
+    GET_VOLUME = r'amixer get Digital | grep "Left:" | cut -d"[" -f 2 | cut -d"]" -f 1'
     SET_VOLUME = 'amixer -q set Digital %d%%'
     LAST_VOL = 60
 
