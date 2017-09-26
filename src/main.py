@@ -31,7 +31,7 @@ import auth_helpers
 import action
 import speech
 
-from switch import GpioSwitch
+# from switch import GpioSwitch
 
 # =============================================================================
 #
@@ -171,8 +171,8 @@ def main():
         recognizer = speech.AssistantSpeechRequest(credentials)
 
     status_ui = StatusUi(player, args.led_fifo, args.trigger_sound)
-    switch = GpioSwitch([action.reboot, action.shutdown])
-    switch.start()
+    # switch = GpioSwitch([action.reboot, action.shutdown])
+    # switch.start()
 
     # The ok-google trigger is handled with the Assistant Library, so we need
     # to catch this case early.
